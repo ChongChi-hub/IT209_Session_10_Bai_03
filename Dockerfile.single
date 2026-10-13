@@ -1,0 +1,22 @@
+# ==========================================
+# Single-stage Dockerfile (Chưa tối ưu)
+# Cài đặt tất cả dependencies (gồm cả devDependencies)
+# ==========================================
+FROM node:18-alpine
+
+WORKDIR /app
+
+# Khai báo biến môi trường
+ENV PORT=3000
+ENV NODE_ENV=development
+
+# Copy toàn bộ file định nghĩa và cài đặt tất cả packages
+COPY package*.json ./
+RUN npm install
+
+# Copy toàn bộ source code
+COPY . .
+
+EXPOSE 3000
+
+CMD ["node", "server.js"]
